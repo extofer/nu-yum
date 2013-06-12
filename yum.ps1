@@ -8,10 +8,11 @@ $arg= $args[1]
 
 switch ($yumcmd)
 {
-	"install"{Install-Package $arg}
-	"search"{Get-Package -Filter $arg -ListAvailable}
-	"list"{if ($arg -eq "updates") {Get-Package -updates} else {Get-Package}}
-	"remove"{Uninstall-Package $arg}
+	{($_ -eq "install") -or ($_ -eq "i")}{Install-Package $arg}
+	{($_ -eq "search") -or ($_ -eq "s")}{Get-Package -Filter $arg -ListAvailable}
+	{($_ -eq "list") -or ($_ -eq "1")}{if ($arg -eq "updates") {Get-Package -updates} else {Get-Package}}
+	{($_ -eq "remove") -or ($_ -eq "r")}{Uninstall-Package $arg}
+	default {"you must enter a valid argument. type yum -help for helpful usage message"} 
 }
 
 #
